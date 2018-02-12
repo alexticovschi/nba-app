@@ -24,9 +24,5 @@
     font-weight: 300;
     font-size: 28px;
     box-sizing: border-box;
-}
-
-button.slick-arrow.slick-prev {
-    color: #fff;
-    visibility: visible;
+    text-shadow: 7px 7px 7px black;
 }

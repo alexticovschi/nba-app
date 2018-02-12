@@ -6,7 +6,6 @@ import Slick from 'react-slick';
 import styles from './slider.css';
 
 const SliderTemplates = (props) => {
-    console.log(props.data);
 
     let template = null;
 
