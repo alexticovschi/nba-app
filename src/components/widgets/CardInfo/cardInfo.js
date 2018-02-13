@@ -4,8 +4,7 @@ import FontAwesome from 'react-fontawesome';
 import styles from './cardInfo.css';
 
 const CardInfo = (props) => {
-    console.log('Teams:' + props.teams, 'Team: ' + props.team)
-
+    
     const teamName = (teams, team) => {
         let data = teams.find((item) => {
             return item.id == team
