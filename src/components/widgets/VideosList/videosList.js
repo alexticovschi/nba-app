@@ -16,7 +16,7 @@ class VideosList extends Component {
         amount: this.props.amount
     }
 
-    componentDidMount() {
+    componentWillMount() {
         this.request(this.state.start, this.state.end);
     }
 
@@ -56,7 +56,8 @@ class VideosList extends Component {
     }
 
     loadMore = () => {
-
+        let end = this.state.end + this.state.amount;
+        this.request(this.state.end, end)
     }
 
     renderButton = () => {
@@ -64,7 +65,7 @@ class VideosList extends Component {
             <Button 
                 type="loadmore"
                 loadMore={ () => this.loadMore() }
-                cts="Load More Videos"
+                cta="Load More Videos"
             /> 
             : <Button type="linkTo" cta="More videos" linkTo="/videos"/>
     }
