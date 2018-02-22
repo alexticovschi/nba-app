@@ -19,10 +19,15 @@
 .featured_caption {
     color: #fff;
     top: 0px;
+    bottom: 60px;
     width: 100%;
     padding: 20px;
     font-weight: 300;
     font-size: 28px;
     box-sizing: border-box;
     text-shadow: 7px 7px 7px black;
+}
+
+.slick-initialized > ul.slick-dots {
+    margin-bottom: 50px;
 }
