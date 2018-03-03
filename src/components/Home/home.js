@@ -10,15 +10,15 @@ const Home = () => {
             <NewsSlider
                 type="featured"
                 start={0}
-                amount={4}
+                amount={3}
             />
-            {/* <NewsList
+            <NewsList
                 type="card"
                 loadmore={true}
-                start={4}
-                amount={4}
+                start={3}
+                amount={3}
             />
-            <VideosList
+            {/* <VideosList
                 type="card"
                 title={true}
                 loadmore={true}
