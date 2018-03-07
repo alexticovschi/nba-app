@@ -1,0 +1,46 @@
+.logContainer {
+    width: 80%;
+    margin: 0 auto;
+    height: 100vh;
+    padding-top: 50px;
+    text-align: center;
+}
+
+.logContainer h2 {
+    font-weight: 300;
+    text-align: center;
+    font-size: 35px;
+}
+
+.logContainer input {
+    font-size: 18px;
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px 10px;
+    box-sizing: border-box;
+    font-weight: 300;
+}
+
+@media only screen and (min-width: 600px) {
+    .logContainer input {
+        width: 65%;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .logContainer input {
+        width: 58%;
+    }
+}
+
+@media only screen and (min-width: 900px) {
+    .logContainer input {
+        width: 48%;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .logContainer input {
+        width: 36%;
+    }
+}
