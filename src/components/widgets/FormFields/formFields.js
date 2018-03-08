@@ -4,6 +4,21 @@ import styles from './formFields.css';
 
 const FormFields = ({formData, change, id}) => {
 
+    const showError = () => {
+        let errorMessage = null;
+
+        if(formData.validation && !formData.valid) {
+            errorMessage = (
+                <div className={styles.labelError}>
+                    {/* Whenever the app rerenders, if there's an error message, display it */}
+                    { formData.validationMessage }
+                </div>
+            );
+        }
+
+        return errorMessage;
+    }
+
     const renderTemplate = () => {
         let formTemplate = null;
         
@@ -17,6 +32,7 @@ const FormFields = ({formData, change, id}) => {
                             onBlur={(event) => change({event,id,blur:true})}
                             onChange={(event) => change({event,id,blur:false})}
                        /> 
+                       { showError() }
                     </div>
                 )
                 break;

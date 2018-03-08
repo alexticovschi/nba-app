@@ -1,8 +1,8 @@
 .logContainer {
     width: 80%;
     margin: 0 auto;
-    height: 100vh;
-    padding-top: 50px;
+    height: 70vh;
+    padding-top: 150px;
     text-align: center;
 }
 
@@ -22,25 +22,25 @@
 }
 
 @media only screen and (min-width: 600px) {
-    .logContainer input {
+    .logContainer {
         width: 65%;
     }
 }
 
 @media only screen and (min-width: 768px) {
-    .logContainer input {
+    .logContainer {
         width: 58%;
     }
 }
 
 @media only screen and (min-width: 900px) {
-    .logContainer input {
+    .logContainer {
         width: 48%;
     }
 }
 
 @media only screen and (min-width: 1200px) {
-    .logContainer input {
-        width: 36%;
+    .logContainer {
+        width: 30%;
     }
 }

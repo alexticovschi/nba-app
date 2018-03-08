@@ -52,19 +52,63 @@ class SignIn extends Component {
         const newElement = {
             ...newFormData[element.id]
         }
-        
+
         newElement.value = element.event.target.value;
+        if(element.blur) {
+            let validData = this.validate(newElement);
+            // console.log('validData', validData);
+            newElement.valid = validData[0]; // newElement.value equals the first value of the array; true or false
+            newElement.validationMessage = validData[1]; // validationMessage will contain a message
+        }
+
+        newElement.touched = element.blur; // true or false
         newFormData[element.id] = newElement;
-        //console.log('Previous state:',newFormData);
-        //console.log('NewElement value:',newElement.value);
+        
+        let log = console.log;
+        log(newFormData);
         
         this.setState({
             formData: newFormData
         })
     }
 
+    validate = (element) => {
+        // if the error variable contains true and empty string, the input is valid
+        let error = [true, ''];
+
+        if(element.validation.email) {
+            const valid = /\S+@\S+\.\S+/.test(element.value);
+            const message = `${!valid ? 'Must be a valid email' : ''}`;
+            error = !valid ? [valid, message] : error;
+        }        
+
+        if(element.validation.password) {
+            // true if it's not empty, false otherwise
+            const valid = element.value.length >= 5;
+
+            // if not valid, return a message, else return an empty string
+            const message = `${!valid ? 'Must be greater than 5' : ''}`;
+            // if not valid error returns false with a message, otherwise returns the default state
+            error = !valid ? [valid, message] : error;
+        }
+
+        
+        if(element.validation.required) {
+            // true if it's not empty, false otherwise
+            const valid = element.value.trim() !== '';
+
+            // if not valid, return a message, else return an empty string
+            const message = `${!valid ? 'This field is required' : ''}`;
+            // if not valid error returns false with a message, otherwise returns the default state
+            error = !valid ? [valid, message] : error;
+        }
+
+        return error;
+    }
+
+
     render() {
-        console.log(this.state);
+        //console.log(this.state);
         return (
             <div className={styles.logContainer}>
                 <form>
