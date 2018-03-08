@@ -1,7 +1,7 @@
 .logContainer {
     width: 80%;
     margin: 0 auto;
-    height: 70vh;
+    height: 80vh;
     padding-top: 150px;
     text-align: center;
 }
@@ -19,6 +19,16 @@
     padding: 12px 10px;
     box-sizing: border-box;
     font-weight: 300;
+}
+
+.logContainer button {
+    font-size: 18px;
+    background: #03a9f4;
+    padding: 12px;
+    color: #fff;
+    margin: 20px 2px;
+    left: 0px !important;
+    border-radius: 3px;
 }
 
 @media only screen and (min-width: 600px) {
