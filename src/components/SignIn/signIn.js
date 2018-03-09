@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styles from './signIn.css';
+import { firebase } from '../../firebase';
 
 import FormField from '../widgets/FormFields/formFields';
 
@@ -115,7 +116,7 @@ class SignIn extends Component {
             for(let key in this.state.formData) {
                 dataToSubmit[key] = this.state.formData[key].value;
             }
-            // If all the elements are valid, forIsValid keeps its default value,
+            // If all the elements are valid, formIsValid keeps its default value,
             // ... else change the value to false
             for(let key in this.state.formData) {
                 formIsValid = this.state.formData[key].valid && formIsValid;
@@ -126,10 +127,30 @@ class SignIn extends Component {
                     loading: true,
                     registerError:''
                 });
-                if(type) {
-                    console.log('Login');
-                } else {
-                    console.log('Register');
+                if(type) { // login user
+                    firebase.auth().signInWithEmailAndPassword(
+                        dataToSubmit.email,
+                        dataToSubmit.password
+                    ).then(() => { // if successful, send user to home page
+                        this.props.history.push('/')
+                    }).catch( error => {
+                        this.setState({
+                            loading: false,
+                            registerError: error.message
+                        })
+                    })
+                } else { // register new user
+                    firebase.auth().createUserWithEmailAndPassword(
+                        dataToSubmit.email, 
+                        dataToSubmit.password
+                    ).then(() => { // if successful, send user to home page
+                        this.props.history.push('/')
+                    }).catch( error => {
+                        this.setState({
+                            loading: false,
+                            registerError: error.message
+                        })
+                    })
                 }
             }
         }
@@ -144,6 +165,14 @@ class SignIn extends Component {
             <button onClick={(event) => this.submitForm(event,false)}>Register Now</button>
             <button onClick={(event) => this.submitForm(event,true)}>Login</button>
         </div>    
+    );
+
+    showError = () => (
+        this.state.registerError !== '' ?
+            <div className={styles.error}>
+                {this.state.registerError}
+            </div>
+        : null
     );
 
 
@@ -165,7 +194,7 @@ class SignIn extends Component {
                     />    
 
                     { this.submitButton() }
-
+                    { this.showError() }
                 </form>
             </div>
         )

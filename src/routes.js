@@ -13,6 +13,7 @@ import SignIn from './components/SignIn/signIn';
 
 class Routes extends Component {
     render() {
+        console.log(this.props);
         return (
             <Layout>
                 <Switch>
