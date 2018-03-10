@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './layout.css';
+import styles from './layout.css';
 import Header from '../../components/Header/header';
 import Footer from "../../components/Footer/footer";
 
@@ -17,8 +17,9 @@ class Layout extends Component {
 
     render() {
         return (
-            <div>
+            <div className={styles.wrapper}>
                 <Header
+                    user={this.props.user}
                     showNav={this.state.showNav}
                     onHideNav={() => this.toggleSidenav(false)}
                     onOpenNav={() => this.toggleSidenav(true)}

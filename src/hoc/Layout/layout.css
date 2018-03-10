@@ -1,5 +1,5 @@
 body {
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
     background: #ececec;
     font-family: 'Roboto', sans-serif;
@@ -8,3 +8,28 @@ body {
 a {
     text-decoration: none;
 }
+
+@media only screen and (min-width: 600px) {
+    body {
+        width: 65%;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    body {
+        width: 58%;
+    }
+}
+
+@media only screen and (min-width: 900px) {
+    body {
+        width: 48%;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    body {
+        width: 40%;
+    }
+}
+

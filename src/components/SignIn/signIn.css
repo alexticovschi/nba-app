@@ -1,3 +1,7 @@
+.outer {
+    background-color: #e3eaf4;
+}
+
 .logContainer {
     width: 80%;
     margin: 0 auto;
@@ -36,28 +40,4 @@
     padding: 14px;
     font-weight: 600;
     box-sizing: border-box;
-}
-
-@media only screen and (min-width: 600px) {
-    .logContainer {
-        width: 65%;
-    }
-}
-
-@media only screen and (min-width: 768px) {
-    .logContainer {
-        width: 58%;
-    }
-}
-
-@media only screen and (min-width: 900px) {
-    .logContainer {
-        width: 48%;
-    }
-}
-
-@media only screen and (min-width: 1200px) {
-    .logContainer {
-        width: 30%;
-    }
 }

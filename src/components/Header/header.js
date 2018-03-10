@@ -6,7 +6,7 @@ import FontAwesome from 'react-fontawesome';
 import SideNav from './SideNav/sideNav';
 
 const Header = (props) => {
-
+    console.log('from header',props.user);
     const navBars = () => {
         return (
             <div className={style.bars}>

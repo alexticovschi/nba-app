@@ -179,23 +179,25 @@ class SignIn extends Component {
     render() {
         //console.log(this.state);
         return (
-            <div className={styles.logContainer}>
-                <form onSubmit={(event) => this.submitForm(event,null)}>
-                    <h2>Register / Login</h2>
-                    <FormField
-                        formData={this.state.formData.email}
-                        id={'email'}
-                        change={(element)=>this.updateForm(element)}
-                    />
-                    <FormField
-                        formData={this.state.formData.password}
-                        id={'password'}
-                        change={(element)=>this.updateForm(element)}
-                    />    
+            <div className={styles.outer}>
+                <div className={styles.logContainer}>
+                    <form onSubmit={(event) => this.submitForm(event,null)}>
+                        <h2>Register / Login</h2>
+                        <FormField
+                            formData={this.state.formData.email}
+                            id={'email'}
+                            change={(element)=>this.updateForm(element)}
+                        />
+                        <FormField
+                            formData={this.state.formData.password}
+                            id={'password'}
+                            change={(element)=>this.updateForm(element)}
+                        />    
 
-                    { this.submitButton() }
-                    { this.showError() }
-                </form>
+                        { this.submitButton() }
+                        { this.showError() }
+                    </form>
+                </div>
             </div>
         )
     }
