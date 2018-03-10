@@ -14,6 +14,7 @@
     height: 330px;
     background-size: cover !important;
     background-repeat: no-repeat;
+    margin-bottom: 3px;
 }
 
 .featured_caption {
@@ -28,6 +29,3 @@
     text-shadow: 7px 7px 7px black;
 }
 
-.slick-initialized > ul.slick-dots {
-    margin-bottom: 50px;
-}
