@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import FormField from '../widgets/FormFields/formFields';
 import styles from './dashboard.css';
+import { firebaseTeams } from '../../firebase';
 
 import { Editor } from 'react-draft-wysiwyg';
 import { EditorState, convertFromRaw,convertToRaw } from 'draft-js';
@@ -47,38 +48,62 @@ class Dashboard extends Component {
                 element: 'texteditor',
                 value: '',
                 valid: true
+            },
+            teams: {
+                element: 'select',
+                value: '',
+                config: {
+                    name: 'teams_input',
+                    options: []
+                },
+                validation: {
+                    required: true
+                },
+                valid: false,
+                touched: false,
+                validationMessage: ''
             }
         }
     }
 
-    submitForm = (event) => {
-        event.preventDefault();
-
-        let dataToSubmit = {}; 
-        let formIsValid = true;
-
-        // On each iteration enter the data to submit by creating a key 
-        // ...and passing the value of the key 
-        for(let key in this.state.formData) {
-            dataToSubmit[key] = this.state.formData[key].value;
-        }
-        // If all the elements are valid, formIsValid keeps its default value,
-        // ... else change the value to false
-        for(let key in this.state.formData) {
-            formIsValid = this.state.formData[key].valid && formIsValid;
-        }
-
-        console.log(dataToSubmit);
-
-        if(formIsValid) {
-            console.log('Submit post');
-        } else {
-            this.setState({
-                postError: '* Something went Wrong! Post was NOT submitted *'
-            })
-        }
-
+    // after the dashboard component is rendered, trigger the loadTeams function
+    componentDidMount() {
+        this.loadTeams(); 
     }
+
+    loadTeams = () => {
+        firebaseTeams.once('value').then((snapshot) => {
+            let teams = [];
+            
+            snapshot.forEach((childSnapshot)=>{
+                teams.push({
+                    id:   childSnapshot.val().teamId,
+                    name: childSnapshot.val().city
+                })
+            })
+            //console.log('Teams:',teams);
+
+            // make a copy of the current state
+            const newFormData = {...this.state.formData}
+            
+            // the id of the element that we want to change
+            const newElement = {...newFormData['teams']};
+            
+            // inject new data into options
+            newElement.config.options = teams;
+
+            // grab the newFormData, access teams and assign whatever is inside newElement
+            newFormData['teams'] = newElement;
+            //console.log(newFormData);
+
+            // update the state with new data
+            this.setState({
+                formData: newFormData
+            })
+            console.log('Updated state:', this.state.formData)
+        })
+    }
+
 
     updateForm = (element, content='') => {
         // create a clone of the previous state
@@ -160,6 +185,35 @@ class Dashboard extends Component {
         })
     }
 
+    submitForm = (event) => {
+        event.preventDefault();
+
+        let dataToSubmit = {}; 
+        let formIsValid = true;
+
+        // On each iteration enter the data to submit by creating a key 
+        // ...and passing the value of the key 
+        for(let key in this.state.formData) {
+            dataToSubmit[key] = this.state.formData[key].value;
+        }
+        // If all the elements are valid, formIsValid keeps its default value,
+        // ... else change the value to false
+        for(let key in this.state.formData) {
+            formIsValid = this.state.formData[key].valid && formIsValid;
+        }
+
+        console.log(dataToSubmit);
+
+        if(formIsValid) {
+            console.log('Submit post');
+        } else {
+            this.setState({
+                postError: '* Something went Wrong! Post was NOT submitted *'
+            })
+        }
+
+    }
+
 
     render() {
         return (
@@ -185,6 +239,12 @@ class Dashboard extends Component {
                             wrapperClassName="myEditor-wrapper"
                             editorClassName="myEditor-editor"
                             onEditorStateChange={this.onEditorStateChange}
+                        />
+
+                        <FormField
+                            id={'teams'}
+                            formData={this.state.formData.teams}
+                            change={(element)=>this.updateForm(element)}
                         />
 
                         { this.submitButton() }     
