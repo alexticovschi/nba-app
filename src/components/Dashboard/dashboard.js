@@ -43,6 +43,11 @@ class Dashboard extends Component {
                 touched: false,
                 validationMessage: ''
             },
+            body: {
+                element: 'texteditor',
+                value: '',
+                valid: true
+            }
         }
     }
 
@@ -75,7 +80,7 @@ class Dashboard extends Component {
 
     }
 
-    updateForm = (element) => {
+    updateForm = (element, content='') => {
         // create a clone of the previous state
         const newFormData = {
             ...this.state.formData
@@ -84,8 +89,15 @@ class Dashboard extends Component {
         const newElement = {
             ...newFormData[element.id]
         }
-        // assign new value to the element
-        newElement.value = element.event.target.value;
+
+        if(content === '') {
+            // assign new value to the element
+            newElement.value = element.event.target.value;
+        } else {
+            newElement.value = content;
+        }
+
+        
         if(element.blur) {
             let validData = this.validate(newElement);
             // console.log('validData', validData);
@@ -141,7 +153,7 @@ class Dashboard extends Component {
 
         let html = stateToHTML(contentState);
         
-        console.log(html);
+        this.updateForm({id:'body'}, html) 
 
         this.setState({
             editorState

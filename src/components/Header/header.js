@@ -15,6 +15,7 @@ const Header = (props) => {
                     style={{
                         color: '#dfdfdf',
                         padding: '10px',
+                        fontSize: '20px',
                         cursor: 'pointer'
                     }}
                 />
