@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import FormField from '../widgets/FormFields/formFields';
 import styles from './dashboard.css';
-import { firebaseTeams } from '../../firebase';
+import { firebaseTeams, firebaseArticles, firebase } from '../../firebase';
 
 import { Editor } from 'react-draft-wysiwyg';
 import { EditorState, convertFromRaw,convertToRaw } from 'draft-js';
@@ -56,11 +56,11 @@ class Dashboard extends Component {
                 value: '',
                 valid: true
             },
-            teams: {
+            team: {
                 element: 'select',
                 value: '',
                 config: {
-                    name: 'teams_input',
+                    name: 'team_input',
                     options: []
                 },
                 validation: {
@@ -80,10 +80,10 @@ class Dashboard extends Component {
 
     loadTeams = () => {
         firebaseTeams.once('value').then((snapshot) => {
-            let teams = [];
+            let team = [];
             
             snapshot.forEach((childSnapshot)=>{
-                teams.push({
+                team.push({
                     id:   childSnapshot.val().teamId,
                     name: childSnapshot.val().city
                 })
@@ -94,13 +94,13 @@ class Dashboard extends Component {
             const newFormData = {...this.state.formData}
             
             // the id of the element that we want to change
-            const newElement = {...newFormData['teams']};
+            const newElement = {...newFormData['team']};
             
             // inject new data into options
-            newElement.config.options = teams;
+            newElement.config.options = team;
 
             // grab the newFormData, access teams and assign whatever is inside newElement
-            newFormData['teams'] = newElement;
+            newFormData['team'] = newElement;
             //console.log(newFormData);
 
             // update the state with new data
@@ -213,6 +213,35 @@ class Dashboard extends Component {
 
         if(formIsValid) {
             console.log('Submit post');
+
+            this.setState({
+                loading: true,
+                postError: ''
+            })
+
+            firebaseArticles.orderByChild('id')
+                .limitToLast(1).once('value')
+                .then(snapshot => {
+                    let articleId = null;
+
+                    snapshot.forEach(childSnapshot => {
+                        articleId = childSnapshot.val().id
+                    });
+
+                    dataToSubmit['date'] = firebase.database.ServerValue.TIMESTAMP;
+                    dataToSubmit['id']   = articleId + 1;
+                    dataToSubmit['team'] = parseInt(dataToSubmit['team']);
+                    
+                    firebaseArticles.push(dataToSubmit)
+                        .then( article => {
+                            this.props.history.push(`/articles/${article.key}`)
+                        }).catch( error => {
+                            this.setState({
+                                postError: error.message
+                            })
+                        } )
+                })
+
         } else {
             this.setState({
                 postError: '* Something went Wrong! Post was NOT submitted *'
@@ -257,8 +286,8 @@ class Dashboard extends Component {
                         />
 
                         <FormField
-                            id={'teams'}
-                            formData={this.state.formData.teams}
+                            id={'team'}
+                            formData={this.state.formData.team}
                             change={(element)=>this.updateForm(element)}
                         />
 
