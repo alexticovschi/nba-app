@@ -28,11 +28,16 @@
 .logContainer button {
     font-size: 18px;
     background: #03a9f4;
-    padding: 12px;
+    width: 150px;
+    padding: 10px;
     color: #fff;
-    margin: 20px 2px;
-    left: 0px !important;
+    /* left: 0px !important; */
     border-radius: 3px;
+}
+
+.buttons {
+    margin: 0 auto;
+    display: inline-flex;
 }
 
 .error {
@@ -40,4 +45,12 @@
     padding: 14px;
     font-weight: 600;
     box-sizing: border-box;
+}
+
+@media only screen and (max-width: 385px) {
+    .logContainer button {
+        width: 138px;
+        padding: 8px;
+        font-size: 18px;
+    }
 }
