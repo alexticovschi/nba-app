@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-
 import Slick from 'react-slick';
 import styles from './slider.css';
 
@@ -27,7 +26,7 @@ const SliderTemplates = (props) => {
                         <div className={styles.featured_item}>
                             <div className={styles.featured_image}
                                 style={{
-                                    background: `url(../images/articles/${item.image})`
+                                    background: `url(${item.image})`
                                 }}
                             ></div>
                             <Link to={`/articles/${item.id}`}>
